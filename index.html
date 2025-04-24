@@ -7,18 +7,19 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div id="app">
-    <h1>MoveLog</h1>
-    <div class="input-section">
-      <input type="date" id="date" />
-      <input type="number" id="weight" placeholder="体重 (kg)" />
-      <input type="number" id="caloriesIn" placeholder="摂取カロリー (kcal)" />
-      <button onclick="addTraining()">＋トレーニング追加</button>
-      <div id="trainings"></div>
-      <button onclick="saveLog()">保存</button>
-    </div>
-    <div id="output"></div>
-  </div>
+  <h1>🏃‍♂️ MoveLog</h1>
+  <form id="recordForm">
+    <label>日付: <input type="date" id="date" required></label><br>
+    <label>体重 (kg): <input type="number" id="weight" required></label><br>
+    <label>摂取カロリー (kcal): <input type="number" id="intake" required></label><br><br>
+    <button type="button" id="addTraining">＋トレーニング追加</button><br><br>
+    <div id="trainingContainer"></div><br>
+    <button type="submit">記録を保存</button>
+  </form>
+
+  <h2>📊 今日のまとめ</h2>
+  <div id="summaryText" style="line-height: 1.6;"></div>
+
   <script src="script.js"></script>
 </body>
 </html>
