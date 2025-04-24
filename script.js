@@ -102,7 +102,7 @@ function updateSummary(record) {
     detailsHtml += `${emoji} ${t.type}: ${t.calories} kcal<br>`;
   });
 
-  const theoryText = `${record.theoryLoss > 0 ? '-' : '+'}${Math.abs(record.theoryLoss)} kg`;
+  const theoryText = `${record.theoryLoss >= 0 ? '+' : ''}${record.theoryLoss} kg`;
 
   document.getElementById('summaryText').innerHTML = `
     📅 日付: ${record.date}<br>
