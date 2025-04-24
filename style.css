@@ -1,0 +1,20 @@
+body {
+  font-family: sans-serif;
+  background-color: #111;
+  color: #0af;
+  padding: 20px;
+}
+input, button {
+  margin: 5px;
+  padding: 8px;
+  font-size: 16px;
+}
+button {
+  background-color: #0af;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+#trainings {
+  margin-top: 10px;
+}

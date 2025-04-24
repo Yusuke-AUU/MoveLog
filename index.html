@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MoveLog</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="app">
+    <h1>MoveLog</h1>
+    <div class="input-section">
+      <input type="date" id="date" />
+      <input type="number" id="weight" placeholder="体重 (kg)" />
+      <input type="number" id="caloriesIn" placeholder="摂取カロリー (kcal)" />
+      <button onclick="addTraining()">＋トレーニング追加</button>
+      <div id="trainings"></div>
+      <button onclick="saveLog()">保存</button>
+    </div>
+    <div id="output"></div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
