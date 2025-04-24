@@ -48,12 +48,14 @@ document.getElementById('recordForm').addEventListener('submit', function (e) {
     const dur = parseFloat(t.querySelector('.duration').value);
     const dist = parseFloat(t.querySelector('.distance')?.value || 0);
     let cal = 0;
-    let label = act;
 
     if (FIXED_ACTIVITIES[act]) {
       cal = (dur / 60) * FIXED_ACTIVITIES[act];
     } else if (act === 'swim') {
-      cal = ((dist / 2) + (dur / 30)) * 425;
+      // swim: 3km50分 = 850kcal → 分速 = 3/50 km/min, 単位距離あたり 850 / 3 km = 283.3kcal/km（固定）
+      const speed = dist / dur; // km/min
+      const referenceSpeed = 3 / 50; // km/min
+      cal = (dist * (speed / referenceSpeed)) * (850 / 3);
     } else if (act === 'bike') {
       cal = ((dist / 30) + (dur / 50)) * 425;
     } else if (act === 'run') {
@@ -100,7 +102,7 @@ function updateSummary(record) {
     detailsHtml += `${emoji} ${t.type}: ${t.calories} kcal<br>`;
   });
 
-  const theoryText = `${record.theoryLoss > 0 ? '-' : ''}${Math.abs(record.theoryLoss)} kg`;
+  const theoryText = `${record.theoryLoss > 0 ? '-' : '+'}${Math.abs(record.theoryLoss)} kg`;
 
   document.getElementById('summaryText').innerHTML = `
     📅 日付: ${record.date}<br>
