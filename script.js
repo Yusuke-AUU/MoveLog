@@ -41,12 +41,14 @@ document.getElementById('recordForm').addEventListener('submit', function (e) {
   const weight = parseFloat(document.getElementById('weight').value);
   const intake = parseFloat(document.getElementById('intake').value);
   let totalCalories = 0;
+  let trainingDetails = [];
 
   document.querySelectorAll('.training').forEach(t => {
     const act = t.querySelector('.activity').value;
     const dur = parseFloat(t.querySelector('.duration').value);
     const dist = parseFloat(t.querySelector('.distance')?.value || 0);
     let cal = 0;
+    let label = act;
 
     if (FIXED_ACTIVITIES[act]) {
       cal = (dur / 60) * FIXED_ACTIVITIES[act];
@@ -58,12 +60,17 @@ document.getElementById('recordForm').addEventListener('submit', function (e) {
       cal = ((dist / 10) + (dur / 60)) * 425;
     }
 
+    trainingDetails.push({
+      type: act,
+      calories: Math.round(cal)
+    });
+
     totalCalories += cal;
   });
 
   const totalBurned = totalCalories + FIXED_METABOLISM;
   const balance = intake - totalBurned;
-  const lossTheory = Math.round((balance / -700 * 0.1) * 100) / 100;
+  const lossTheory = Math.round((balance / 700 * 0.1) * 100) / 100;
 
   const record = {
     date, weight, intake,
@@ -71,7 +78,8 @@ document.getElementById('recordForm').addEventListener('submit', function (e) {
     metabolism: FIXED_METABOLISM,
     totalBurned: Math.round(totalBurned),
     balance: Math.round(balance),
-    theoryLoss: lossTheory
+    theoryLoss: lossTheory,
+    details: trainingDetails
   };
 
   localStorage.setItem('latestRecord', JSON.stringify(record));
@@ -79,16 +87,32 @@ document.getElementById('recordForm').addEventListener('submit', function (e) {
 });
 
 function updateSummary(record) {
+  let detailsHtml = '';
+  record.details.forEach(t => {
+    let emoji = {
+      swim: '🏊‍♂️',
+      bike: '🚴‍♂️',
+      run: '🏃‍♂️',
+      trampoline: '🪽',
+      ballet: '🩰',
+      strength: '💪'
+    }[t.type] || '';
+    detailsHtml += `${emoji} ${t.type}: ${t.calories} kcal<br>`;
+  });
+
+  const theoryText = `${record.theoryLoss > 0 ? '-' : ''}${Math.abs(record.theoryLoss)} kg`;
+
   document.getElementById('summaryText').innerHTML = `
     📅 日付: ${record.date}<br>
     ⚖️ 体重: ${record.weight}kg<br>
     🍙 摂取: ${record.intake} kcal<br>
     🔋 基礎代謝: ${record.metabolism} kcal<br>
+    ${detailsHtml}
     🔥 運動消費: ${record.totalCalories} kcal<br>
     💓 合計消費（含：基礎代謝）: ${record.totalBurned} kcal<br>
     ⚖️ カロリー差分: <strong style='color:${record.balance < 0 ? 'green' : 'red'}'>
       ${record.balance} kcal</strong><br>
-    📉 理論減量値: ${record.theoryLoss} kg
+    📉 理論増減値: ${theoryText}
   `;
 }
 });
