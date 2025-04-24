@@ -1,27 +1,17 @@
 body {
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #111;
-  color: #0af;
-  padding: 20px;
+  font-family: sans-serif; margin: 0; padding: 10px; background-color: #121212; color: #fff;
 }
-h1, h2 {
-  color: #0cf;
+.logo { width: 80%; max-width: 400px; display: block; margin: 20px auto; }
+form, .summary, .chartArea {
+  background-color: #1e1e1e; padding: 15px; border-radius: 8px; margin-top: 20px;
 }
+label { display: block; margin-top: 12px; font-weight: bold; }
 input, select, button {
-  margin: 5px 0;
-  padding: 6px;
-  font-size: 16px;
+  width: 100%; padding: 10px; margin-top: 5px; box-sizing: border-box;
+  font-size: 16px; background-color: #222; color: #fff; border: 1px solid #444;
 }
 button {
-  background-color: #0af;
-  color: white;
-  border: none;
-  cursor: pointer;
-  padding: 8px 12px;
-  border-radius: 5px;
+  background-color: #00AEEF; color: white; border: none; border-radius: 5px;
+  margin-top: 10px; cursor: pointer;
 }
-.training {
-  border: 1px solid #0af;
-  padding: 10px;
-  margin-bottom: 10px;
-}
+canvas { width: 100% !important; height: auto !important; }
