@@ -8,22 +8,26 @@ window.addEventListener('DOMContentLoaded', function () {
   };
 
   document.getElementById('addTraining').addEventListener('click', function () {
-    const container = document.getElementById('trainingContainer');
-    const div = document.createElement('div');
-    div.innerHTML = `
-      <select class="activity">
-        <option value="swim">🏊‍♂️ スイム</option>
-        <option value="bike">🚴‍♂️ バイク</option>
-        <option value="run">🏃‍♂️ ラン</option>
-        <option value="trampoline">🪽 トランポリン</option>
-        <option value="ballet">🩰 バレエ</option>
-        <option value="workout">💪 筋トレ</option>
-      </select>
-      <input type="number" class="minutes" placeholder="分数">
-      <input type="number" class="distance" placeholder="距離 (km/m)">
-    `;
-    container.appendChild(div);
-  });
+  const container = document.getElementById('trainingContainer');
+  const div = document.createElement('div');
+  div.classList.add('training-row');
+  div.innerHTML = `
+    <select class="activity">
+      <option value="swim">🏊‍♂️ スイム</option>
+      <option value="bike">🚴‍♂️ バイク</option>
+      <option value="run">🏃‍♂️ ラン</option>
+      <option value="trampoline">🪽 トランポリン</option>
+      <option value="ballet">🩰 バレエ</option>
+      <option value="workout">💪 筋トレ</option>
+    </select>
+    <input type="number" class="minutes" placeholder="分数">
+    <input type="number" class="distance" placeholder="距離 (km)" step="0.1">
+    <button type="button" class="delete-training">🗑️</button>
+  `;
+  container.appendChild(div);
+
+  div.querySelector('.delete-training').addEventListener('click', () => div.remove());
+});
 
   document.getElementById('recordForm').addEventListener('submit', function (e) {
     e.preventDefault();

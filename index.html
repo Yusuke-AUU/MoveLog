@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>MoveLog</title>
   <link rel="stylesheet" href="style.css" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -31,7 +31,11 @@
 
   <div id="calendar" class="tab-content" style="display:none;">
     <h2>🗓 記録カレンダー</h2>
-    <div id="calendarContainer"></div>
+    <div id="calendarContainer" class="calendar"></div>
+    <div id="calendarSelectors" style="margin-top: 10px;">
+      <label>年: <select id="yearSelect"></select></label>
+      <label>月: <select id="monthSelect"></select></label>
+    </div>
   </div>
 
   <div id="graph" class="tab-content" style="display:none;">
