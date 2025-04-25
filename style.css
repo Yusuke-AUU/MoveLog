@@ -15,32 +15,3 @@ button {
   margin-top: 10px; cursor: pointer;
 }
 canvas { width: 100% !important; height: auto !important; }
-
-.tabs {
-  margin-bottom: 10px;
-}
-.tab-button {
-  background-color: #0af;
-  color: white;
-  border: none;
-  margin-right: 5px;
-  padding: 8px 12px;
-  cursor: pointer;
-  border-radius: 5px;
-}
-.tab-content {
-  margin-top: 20px;
-}
-.calendar {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 5px;
-}
-.calendar-day {
-  background-color: #222;
-  border: 1px solid #0af;
-  padding: 5px;
-  min-height: 80px;
-  font-size: 14px;
-  color: #0af;
-}
