@@ -3,7 +3,7 @@ window.addEventListener('DOMContentLoaded', function () {
   window.showTab = function (id) {
     document.querySelectorAll('.tab-content').forEach(t => t.style.display = 'none');
     document.getElementById(id).style.display = 'block';
-    if (id === 'calendar') generateCalendar();
+    if (id === 'calendar') generateCalendar(parseInt(yearSelect.value), parseInt(monthSelect.value));
     if (id === 'graph') renderChart();
   };
 
@@ -152,3 +152,37 @@ window.addEventListener('DOMContentLoaded', function () {
 
   showTab('record');
 });
+
+// 年月セレクタ初期化
+window.populateYearMonthSelectors = function() {
+  const yearSelect = document.getElementById('yearSelect');
+  const monthSelect = document.getElementById('monthSelect');
+  if (!yearSelect || !monthSelect) return;
+
+  for (let y = 2025; y <= 2065; y++) {
+    const opt = document.createElement('option');
+    opt.value = y;
+    opt.textContent = y;
+    yearSelect.appendChild(opt);
+  }
+
+  for (let m = 0; m < 12; m++) {
+    const opt = document.createElement('option');
+    opt.value = m;
+    opt.textContent = (m + 1) + '月';
+    monthSelect.appendChild(opt);
+  }
+
+  const now = new Date();
+  yearSelect.value = now.getFullYear();
+  monthSelect.value = now.getMonth();
+
+  yearSelect.addEventListener('change', () => {
+    generateCalendar(parseInt(yearSelect.value), parseInt(monthSelect.value));
+  });
+  monthSelect.addEventListener('change', () => {
+    generateCalendar(parseInt(yearSelect.value), parseInt(monthSelect.value));
+  });
+};
+
+populateYearMonthSelectors();
