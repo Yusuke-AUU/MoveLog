@@ -1,6 +1,6 @@
 
-window.addEventListener('DOMContentLoaded', function() {
-  window.showTab = function(id) {
+window.addEventListener('DOMContentLoaded', function () {
+  window.showTab = function (id) {
     document.querySelectorAll('.tab-content').forEach(t => t.style.display = 'none');
     document.getElementById(id).style.display = 'block';
     if (id === 'calendar') generateCalendar();
@@ -10,7 +10,18 @@ window.addEventListener('DOMContentLoaded', function() {
   document.getElementById('addTraining').addEventListener('click', function () {
     const container = document.getElementById('trainingContainer');
     const div = document.createElement('div');
-    div.innerHTML = '<input type="text" class="activity" placeholder="種目"> <input type="number" class="calories" placeholder="消費カロリー(kcal)">';
+    div.innerHTML = `
+      <select class="activity">
+        <option value="swim">🏊‍♂️ スイム</option>
+        <option value="bike">🚴‍♂️ バイク</option>
+        <option value="run">🏃‍♂️ ラン</option>
+        <option value="trampoline">🪽 トランポリン</option>
+        <option value="ballet">🩰 バレエ</option>
+        <option value="workout">💪 筋トレ</option>
+      </select>
+      <input type="number" class="minutes" placeholder="分数">
+      <input type="number" class="distance" placeholder="距離 (km/m)">
+    `;
     container.appendChild(div);
   });
 
@@ -24,9 +35,31 @@ window.addEventListener('DOMContentLoaded', function() {
 
     document.querySelectorAll('#trainingContainer div').forEach(div => {
       const act = div.querySelector('.activity').value;
-      const cal = parseFloat(div.querySelector('.calories').value || 0);
+      const minutes = parseFloat(div.querySelector('.minutes').value || 0);
+      const distance = parseFloat(div.querySelector('.distance').value || 0);
+      let cal = 0;
+
+      if (act === 'swim') {
+        cal = (distance / 3) * 850 * (minutes / 50);
+        activities += '🏊‍♂️ ';
+      } else if (act === 'bike') {
+        cal = (distance / 30) * 850;
+        activities += '🚴‍♂️ ';
+      } else if (act === 'run') {
+        cal = (distance / 10) * 850 * (minutes / 60);
+        activities += '🏃‍♂️ ';
+      } else if (act === 'trampoline') {
+        cal = (minutes / 60) * 450;
+        activities += '🪽 ';
+      } else if (act === 'ballet') {
+        cal = (minutes / 60) * 450;
+        activities += '🩰 ';
+      } else if (act === 'workout') {
+        cal = (minutes / 30) * 400;
+        activities += '💪 ';
+      }
+
       totalCalories += cal;
-      activities += act + ' ';
     });
 
     const metabolism = 2000;
@@ -45,14 +78,14 @@ window.addEventListener('DOMContentLoaded', function() {
       ⚖️ 体重: ${record.weight}kg<br>
       🍙 摂取: ${record.intake} kcal<br>
       🔋 基礎代謝: ${record.metabolism} kcal<br>
-      🔥 運動消費: ${record.totalCalories} kcal<br>
-      💓 合計消費（含：基礎代謝）: ${record.totalBurned} kcal<br>
-      ⚖️ カロリー差分: ${record.balance} kcal<br>
+      🔥 運動消費: ${Math.round(record.totalCalories)} kcal<br>
+      💓 合計消費（含：基礎代謝）: ${Math.round(record.totalBurned)} kcal<br>
+      ⚖️ カロリー差分: ${Math.round(record.balance)} kcal<br>
       📉 理論増減値: ${record.theoryLoss >= 0 ? '+' : ''}${record.theoryLoss} kg
     `;
   }
 
-  window.generateCalendar = function() {
+  window.generateCalendar = function () {
     const container = document.getElementById('calendarContainer');
     container.innerHTML = '';
     const now = new Date();
@@ -76,7 +109,7 @@ window.addEventListener('DOMContentLoaded', function() {
     }
   };
 
-  window.renderChart = function() {
+  window.renderChart = function () {
     const ctx = document.getElementById('calorieChart').getContext('2d');
     let labels = [], intakeData = [], burnedData = [], weightData = [];
 
