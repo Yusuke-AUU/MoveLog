@@ -1,4 +1,31 @@
 
+body {
+  background-color: #000;
+  color: #fff;
+  font-family: sans-serif;
+  padding: 20px;
+}
+h1, h2 {
+  color: #0af;
+}
+input, button, select {
+  margin: 5px 0;
+  padding: 8px;
+  border-radius: 5px;
+  border: none;
+}
+input {
+  width: 90%;
+}
+button {
+  background-color: #0af;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+}
+button:hover {
+  opacity: 0.9;
+}
 .tabs {
   margin-bottom: 10px;
 }
@@ -20,10 +47,17 @@
   gap: 5px;
 }
 .calendar-day {
-  background-color: #222;
+  background-color: #111;
   border: 1px solid #0af;
-  padding: 5px;
-  min-height: 80px;
+  padding: 6px;
+  min-height: 90px;
   font-size: 14px;
   color: #0af;
+  white-space: pre-line;
+}
+canvas {
+  background-color: #111;
+  padding: 10px;
+  border-radius: 10px;
+  margin-top: 10px;
 }

@@ -1,6 +1,5 @@
 
 window.addEventListener('DOMContentLoaded', function() {
-  // タブ切り替え
   window.showTab = function(id) {
     document.querySelectorAll('.tab-content').forEach(t => t.style.display = 'none');
     document.getElementById(id).style.display = 'block';
@@ -8,7 +7,6 @@ window.addEventListener('DOMContentLoaded', function() {
     if (id === 'graph') renderChart();
   };
 
-  // トレーニング追加機能
   document.getElementById('addTraining').addEventListener('click', function () {
     const container = document.getElementById('trainingContainer');
     const div = document.createElement('div');
@@ -16,7 +14,6 @@ window.addEventListener('DOMContentLoaded', function() {
     container.appendChild(div);
   });
 
-  // 記録保存
   document.getElementById('recordForm').addEventListener('submit', function (e) {
     e.preventDefault();
     const date = document.getElementById('date').value;
@@ -55,7 +52,6 @@ window.addEventListener('DOMContentLoaded', function() {
     `;
   }
 
-  // カレンダー生成
   window.generateCalendar = function() {
     const container = document.getElementById('calendarContainer');
     container.innerHTML = '';
@@ -72,15 +68,14 @@ window.addEventListener('DOMContentLoaded', function() {
       dayDiv.className = "calendar-day";
       const record = JSON.parse(localStorage.getItem(dateStr));
       if (record) {
-        dayDiv.innerHTML = `📅${i}<br>⚖️${record.weight}kg<br>${record.activities}<br>📉${record.theoryLoss}kg`;
+        dayDiv.innerHTML = `${i}日\n⚖️${record.weight}kg\n${record.activities.trim()}\n📉${record.theoryLoss}kg`;
       } else {
-        dayDiv.innerHTML = `📅${i}`;
+        dayDiv.innerHTML = `${i}日`;
       }
       container.appendChild(dayDiv);
     }
   };
 
-  // グラフ描画
   window.renderChart = function() {
     const ctx = document.getElementById('calorieChart').getContext('2d');
     let labels = [], intakeData = [], burnedData = [], weightData = [];
@@ -100,9 +95,9 @@ window.addEventListener('DOMContentLoaded', function() {
       data: {
         labels,
         datasets: [
-          { label: '摂取カロリー', data: intakeData, borderWidth: 2 },
-          { label: '合計消費カロリー', data: burnedData, borderWidth: 2 },
-          { label: '体重 (kg)', data: weightData, borderWidth: 2 }
+          { label: '摂取カロリー', data: intakeData, borderWidth: 2, borderColor: '#0af' },
+          { label: '合計消費カロリー', data: burnedData, borderWidth: 2, borderColor: '#fa0' },
+          { label: '体重 (kg)', data: weightData, borderWidth: 2, borderColor: '#fff' }
         ]
       },
       options: {
