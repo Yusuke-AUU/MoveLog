@@ -177,12 +177,13 @@ window.populateYearMonthSelectors = function() {
   yearSelect.value = now.getFullYear();
   monthSelect.value = now.getMonth();
 
-  yearSelect.addEventListener('change', () => {
-    generateCalendar(parseInt(yearSelect.value), parseInt(monthSelect.value));
-  });
-  monthSelect.addEventListener('change', () => {
-    generateCalendar(parseInt(yearSelect.value), parseInt(monthSelect.value));
-  });
+
 };
 
 populateYearMonthSelectors();
+
+document.getElementById("showCalendarButton").addEventListener("click", () => {
+  const y = parseInt(document.getElementById("yearSelect").value);
+  const m = parseInt(document.getElementById("monthSelect").value);
+  generateCalendar(y, m);
+});
