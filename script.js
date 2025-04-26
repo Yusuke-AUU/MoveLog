@@ -189,16 +189,3 @@ document.getElementById("showCalendarButton").addEventListener("click", () => {
   generateCalendar(y, m);
 });
 
-
-
-
-document.addEventListener("DOMContentLoaded", () => {
-  const btn = document.getElementById("showCalendarButton");
-  if (btn) {
-    btn.addEventListener("click", () => {
-      const year = parseInt(document.getElementById("yearSelect").value);
-      const month = parseInt(document.getElementById("monthSelect").value) - 1;
-      generateCalendar(year, month);
-    });
-  }
-});
