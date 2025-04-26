@@ -1,15 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const showCalendarBtn = document.getElementById("showCalendarButton");
-  if (showCalendarBtn) {
-    showCalendarBtn.addEventListener("click", () => {
-      const year = parseInt(document.getElementById("yearSelect").value);
-      const month = parseInt(document.getElementById("monthSelect").value) - 1;
-      generateCalendar(year, month);
-    });
-  }
 
-  // 残りの既存コードをここで評価
-  
 window.addEventListener('DOMContentLoaded', function () {
   window.showTab = function (id) {
     document.querySelectorAll('.tab-content').forEach(t => t.style.display = 'none');
@@ -201,4 +190,15 @@ document.getElementById("showCalendarButton").addEventListener("click", () => {
 });
 
 
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const btn = document.getElementById("showCalendarButton");
+  if (btn) {
+    btn.addEventListener("click", () => {
+      const year = parseInt(document.getElementById("yearSelect").value);
+      const month = parseInt(document.getElementById("monthSelect").value) - 1;
+      generateCalendar(year, month);
+    });
+  }
 });
