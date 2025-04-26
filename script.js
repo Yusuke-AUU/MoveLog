@@ -185,7 +185,7 @@ populateYearMonthSelectors();
 
 document.getElementById("showCalendarButton").addEventListener("click", () => {
   const y = parseInt(document.getElementById("yearSelect").value);
-  const m = parseInt(document.getElementById("monthSelect").value);
+  const m = parseInt(document.getElementById("monthSelect").value) - 1;
   generateCalendar(y, m);
 });
 
