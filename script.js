@@ -29,32 +29,52 @@ window.addEventListener('DOMContentLoaded', function () {
   div.querySelector('.delete-training').addEventListener('click', () => div.remove());
 });
 
-  
-document.getElementById('recordForm').addEventListener('submit', function (e) {
-  e.preventDefault();
-  const date = document.getElementById('date').value;
-  const weight = parseFloat(document.getElementById('weight').value);
-  const intake = parseInt(document.getElementById('intake').value);
-  const year = new Date(date).getFullYear();
-  const month = new Date(date).getMonth();
-  const key = `MoveLog_${year}_${month}`;
+  document.getElementById('recordForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    const date = document.getElementById('date').value;
+    const weight = parseFloat(document.getElementById('weight').value);
+    const intake = parseFloat(document.getElementById('intake').value);
+    let totalCalories = 0;
+    let activities = '';
 
-  const trainings = Array.from(document.querySelectorAll('.training-row')).map(row => ({
-    activity: row.querySelector('.activity').value,
-    minutes: parseInt(row.querySelector('.minutes').value),
-    distance: parseFloat(row.querySelector('.distance')?.value || 0)
-  }));
+    document.querySelectorAll('#trainingContainer div').forEach(div => {
+      const act = div.querySelector('.activity').value;
+      const minutes = parseFloat(div.querySelector('.minutes').value || 0);
+      const distance = parseFloat(div.querySelector('.distance').value || 0);
+      let cal = 0;
 
-  const record = { date, weight, intake, trainings };
-  let data = JSON.parse(localStorage.getItem(key) || "[]");
-  const index = data.findIndex(r => r.date === date);
-  if (index > -1) data[index] = record;
-  else data.push(record);
-  localStorage.setItem(key, JSON.stringify(data));
+      if (act === 'swim') {
+        cal = (distance / 3) * 850 * (minutes / 50);
+        activities += '🏊‍♂️ ';
+      } else if (act === 'bike') {
+        cal = (distance / 30) * 850;
+        activities += '🚴‍♂️ ';
+      } else if (act === 'run') {
+        cal = (distance / 10) * 850 * (minutes / 60);
+        activities += '🏃‍♂️ ';
+      } else if (act === 'trampoline') {
+        cal = (minutes / 60) * 450;
+        activities += '🪽 ';
+      } else if (act === 'ballet') {
+        cal = (minutes / 60) * 450;
+        activities += '🩰 ';
+      } else if (act === 'workout') {
+        cal = (minutes / 30) * 400;
+        activities += '💪 ';
+      }
 
-  alert("記録を保存しました！");
-});
+      totalCalories += cal;
+    });
 
+    const metabolism = 2000;
+    const totalBurned = totalCalories + metabolism;
+    const balance = intake - totalBurned;
+    const theoryLoss = Math.round((balance / 700 * 0.1) * 100) / 100;
+
+    const record = { date, weight, intake, totalCalories, metabolism, totalBurned, balance, theoryLoss, activities };
+    localStorage.setItem(date, JSON.stringify(record));
+    updateSummary(record);
+  });
 
   function updateSummary(record) {
     document.getElementById('summaryText').innerHTML = `
@@ -162,8 +182,10 @@ window.populateYearMonthSelectors = function() {
 
 populateYearMonthSelectors();
 
+
 document.getElementById("showCalendarButton").addEventListener("click", () => {
   const y = parseInt(document.getElementById("yearSelect").value);
   const m = parseInt(document.getElementById("monthSelect").value);
   generateCalendar(y, m);
 });
+
