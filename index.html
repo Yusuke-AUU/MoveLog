@@ -1,54 +1,12 @@
+<!-- MoveLog v1.4.7_finish: index.html -->
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>MoveLog</title>
-  <link rel="stylesheet" href="style.css" />
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<meta charset="UTF-8">
+<title>MoveLog</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>🏃‍♂️ MoveLog</h1>
-
-  <div class="tabs">
-    <button class="tab-button" onclick="showTab('record')">📥 記録</button>
-    <button class="tab-button" onclick="showTab('calendar')">🗓 カレンダー</button>
-    <button class="tab-button" onclick="showTab('graph')">📊 グラフ</button>
-  </div>
-
-  <div id="record" class="tab-content">
-    <form id="recordForm">
-      <label>日付: <input type="date" id="date" required></label><br>
-      <label>体重 (kg): <input type="number" id="weight" step="0.1" required></label><br>
-      <label>摂取カロリー (kcal): <input type="number" id="intake" required></label><br><br>
-      <button type="button" id="addTraining">＋トレーニング追加</button><br><br>
-      <div id="trainingContainer"></div><br>
-      <button type="submit">記録を保存</button>
-    </form>
-    <h2>📊 今日のまとめ</h2>
-    <div id="summaryText" style="line-height: 1.6;"></div>
-  </div>
-
-  <div id="calendar" class="tab-content" style="display:none;">
-    <h2>🗓 記録カレンダー</h2>
-
-
-<div id="calendarSelectors" style="margin-bottom: 10px;">
-  <label>年: <select id="yearSelect"></select></label>
-  <label>月: <select id="monthSelect"></select></label>
-  <button id="showCalendarButton">📅 カレンダー表示</button>
-</div>
-
-
-    <div id="calendarContainer" class="calendar"></div>
-    
-  </div>
-
-  <div id="graph" class="tab-content" style="display:none;">
-    <h2>📈 グラフ表示</h2>
-    <canvas id="calorieChart"></canvas>
-  </div>
-
-  <script src="script.js" defer></script>
+<script src="script.js"></script>
 </body>
 </html>
