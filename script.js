@@ -13,18 +13,17 @@ window.addEventListener('DOMContentLoaded', function () {
   div.classList.add('training-row');
   div.innerHTML = `
     <select class="activity">
-      <option value="off">🚫 OFF</option>
       <option value="swim">🏊‍♂️ スイム</option>
       <option value="bike">🚴‍♂️ バイク</option>
       <option value="run">🏃‍♂️ ラン</option>
-      <option value="trampoline">🪂 トランポリン</option>
+      <option value="trampoline">🪽 トランポリン</option>
       <option value="ballet">🩰 バレエ</option>
       <option value="workout">💪 筋トレ</option>
     </select>
     <input type="number" class="minutes" placeholder="分数">
     <input type="number" class="distance" placeholder="距離 (km)" step="0.1">
     <button type="button" class="delete-training">🗑️</button>
-`;
+  `;
   container.appendChild(div);
 
   div.querySelector('.delete-training').addEventListener('click', () => div.remove());
@@ -36,6 +35,7 @@ window.addEventListener('DOMContentLoaded', function () {
     const weight = parseFloat(document.getElementById('weight').value);
     const intake = parseFloat(document.getElementById('intake').value);
     let totalCalories = 0;
+    let trainings = [];
     let activities = '';
 
     document.querySelectorAll('#trainingContainer div').forEach(div => {
@@ -44,10 +44,7 @@ window.addEventListener('DOMContentLoaded', function () {
       const distance = parseFloat(div.querySelector('.distance').value || 0);
       let cal = 0;
 
-      if (act === 'off') {
-        cal = 0;
-        activities += '🚫 ';
-      } else if (act === 'swim') {
+      if (act === 'swim') {
         cal = (distance / 3) * 850 * (minutes / 50);
         activities += '🏊‍♂️ ';
       } else if (act === 'bike') {
@@ -68,6 +65,14 @@ window.addEventListener('DOMContentLoaded', function () {
       }
 
       totalCalories += cal;
+
+      trainings.push({
+        type: act,
+        minutes,
+        distance,
+        calories: Math.round(cal)
+      });
+
     });
 
     const metabolism = 2000;
@@ -75,18 +80,41 @@ window.addEventListener('DOMContentLoaded', function () {
     const balance = intake - totalBurned;
     const theoryLoss = Math.round((balance / 700 * 0.1) * 100) / 100;
 
-    const record = { date, weight, intake, totalCalories, metabolism, totalBurned, balance, theoryLoss, activities };
+    const record = { date, weight, intake, totalCalories, metabolism, totalBurned, balance, theoryLoss, activities, trainings };
     localStorage.setItem(date, JSON.stringify(record));
     updateSummary(record);
   });
 
   function updateSummary(record) {
+    
+    let trainingDetails = "";
+    if (record.trainings && record.trainings.length > 0) {
+      trainingDetails = record.trainings.map(t => {
+        let icon = {
+          swim: "🏊‍♂️",
+          bike: "🚴‍♂️",
+          run: "🏃‍♂️",
+          trampoline: "🪂",
+          ballet: "🩰",
+          workout: "💪",
+          off: "🚫"
+        }[t.type] || "";
+        let line = `${icon} `;
+        if (["swim", "bike", "run"].includes(t.type)) {
+          line += `${t.minutes}分, ${t.distance}km, ${t.calories}kcal`;
+        } else if (["workout", "ballet", "trampoline", "off"].includes(t.type)) {
+          line += `${t.minutes}分, ${t.calories}kcal`;
+        }
+        return "- " + line;
+      }).join("<br>");
+    }
+
     document.getElementById('summaryText').innerHTML = `
       📅 日付: ${record.date}<br>
       ⚖️ 体重: ${record.weight}kg<br>
       🍙 摂取: ${record.intake} kcal<br>
       🔋 基礎代謝: ${record.metabolism} kcal<br>
-      🔥 運動消費: ${Math.round(record.totalCalories)} kcal<br>
+      🔥 運動消費: ${Math.round(record.totalCalories)} kcal<br>${trainingDetails}<br>
       💓 合計消費（含：基礎代謝）: ${Math.round(record.totalBurned)} kcal<br>
       ⚖️ カロリー差分: ${Math.round(record.balance)} kcal<br>
       📉 理論増減値: ${record.theoryLoss >= 0 ? '+' : ''}${record.theoryLoss} kg
