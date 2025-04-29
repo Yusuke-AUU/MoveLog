@@ -7,6 +7,67 @@ window.addEventListener('DOMContentLoaded', function () {
     if (id === 'graph') renderChart();
   };
 
+
+    // 種目ごとの回数カウント
+    const activityCounts = {
+      swim: 0, bike: 0, run: 0,
+      trampoline: 0, ballet: 0, workout: 0, off: 0
+    };
+
+    Object.keys(localStorage).forEach(key => {
+      if (/^\d{4}-\d{2}-\d{2}$/.test(key)) {
+        const record = JSON.parse(localStorage.getItem(key));
+        if (record.trainings && Array.isArray(record.trainings)) {
+          record.trainings.forEach(t => {
+            if (activityCounts[t.type] !== undefined) {
+              activityCounts[t.type]++;
+            }
+          });
+        }
+      }
+    });
+
+    const activityLabels = ['🏊‍♂️ Swim', '🚴‍♂️ Bike', '🏃‍♂️ Run', '🪽 トランポリン', '🩰 バレエ', '💪 筋トレ', '🚫 OFF'];
+    const activityData = [
+      activityCounts.swim,
+      activityCounts.bike,
+      activityCounts.run,
+      activityCounts.trampoline,
+      activityCounts.ballet,
+      activityCounts.workout,
+      activityCounts.off
+    ];
+    const activityColors = ['#4bc0c0', '#ffcd56', '#36a2eb', '#9966ff', '#ff6384', '#ff9f40', '#aaaaaa'];
+
+    const activityCtx = document.getElementById('activityChart').getContext('2d');
+    new Chart(activityCtx, {
+      type: 'bar',
+      data: {
+        labels: activityLabels,
+        datasets: [{
+          label: '実施回数',
+          data: activityData,
+          backgroundColor: activityColors
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { labels: { color: 'white' } }
+        },
+        scales: {
+          x: {
+            ticks: { color: 'white' }
+          },
+          y: {
+            beginAtZero: true,
+            ticks: { color: 'white' }
+          }
+        }
+      }
+    });
+
   document.getElementById('addTraining').addEventListener('click', function () {
   const container = document.getElementById('trainingContainer');
   const div = document.createElement('div');
@@ -185,6 +246,67 @@ window.addEventListener('DOMContentLoaded', function () {
     }
   };
 
+
+    // 種目ごとの回数カウント
+    const activityCounts = {
+      swim: 0, bike: 0, run: 0,
+      trampoline: 0, ballet: 0, workout: 0, off: 0
+    };
+
+    Object.keys(localStorage).forEach(key => {
+      if (/^\d{4}-\d{2}-\d{2}$/.test(key)) {
+        const record = JSON.parse(localStorage.getItem(key));
+        if (record.trainings && Array.isArray(record.trainings)) {
+          record.trainings.forEach(t => {
+            if (activityCounts[t.type] !== undefined) {
+              activityCounts[t.type]++;
+            }
+          });
+        }
+      }
+    });
+
+    const activityLabels = ['🏊‍♂️ Swim', '🚴‍♂️ Bike', '🏃‍♂️ Run', '🪽 トランポリン', '🩰 バレエ', '💪 筋トレ', '🚫 OFF'];
+    const activityData = [
+      activityCounts.swim,
+      activityCounts.bike,
+      activityCounts.run,
+      activityCounts.trampoline,
+      activityCounts.ballet,
+      activityCounts.workout,
+      activityCounts.off
+    ];
+    const activityColors = ['#4bc0c0', '#ffcd56', '#36a2eb', '#9966ff', '#ff6384', '#ff9f40', '#aaaaaa'];
+
+    const activityCtx = document.getElementById('activityChart').getContext('2d');
+    new Chart(activityCtx, {
+      type: 'bar',
+      data: {
+        labels: activityLabels,
+        datasets: [{
+          label: '実施回数',
+          data: activityData,
+          backgroundColor: activityColors
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { labels: { color: 'white' } }
+        },
+        scales: {
+          x: {
+            ticks: { color: 'white' }
+          },
+          y: {
+            beginAtZero: true,
+            ticks: { color: 'white' }
+          }
+        }
+      }
+    });
+
   window.renderChart = function () {
     const ctx = document.getElementById('calorieChart').getContext('2d');
     let labels = [], intakeData = [], burnedData = [], weightData = [];
@@ -261,6 +383,67 @@ window.addEventListener('DOMContentLoaded', function () {
 
   };
 
+
+    // 種目ごとの回数カウント
+    const activityCounts = {
+      swim: 0, bike: 0, run: 0,
+      trampoline: 0, ballet: 0, workout: 0, off: 0
+    };
+
+    Object.keys(localStorage).forEach(key => {
+      if (/^\d{4}-\d{2}-\d{2}$/.test(key)) {
+        const record = JSON.parse(localStorage.getItem(key));
+        if (record.trainings && Array.isArray(record.trainings)) {
+          record.trainings.forEach(t => {
+            if (activityCounts[t.type] !== undefined) {
+              activityCounts[t.type]++;
+            }
+          });
+        }
+      }
+    });
+
+    const activityLabels = ['🏊‍♂️ Swim', '🚴‍♂️ Bike', '🏃‍♂️ Run', '🪽 トランポリン', '🩰 バレエ', '💪 筋トレ', '🚫 OFF'];
+    const activityData = [
+      activityCounts.swim,
+      activityCounts.bike,
+      activityCounts.run,
+      activityCounts.trampoline,
+      activityCounts.ballet,
+      activityCounts.workout,
+      activityCounts.off
+    ];
+    const activityColors = ['#4bc0c0', '#ffcd56', '#36a2eb', '#9966ff', '#ff6384', '#ff9f40', '#aaaaaa'];
+
+    const activityCtx = document.getElementById('activityChart').getContext('2d');
+    new Chart(activityCtx, {
+      type: 'bar',
+      data: {
+        labels: activityLabels,
+        datasets: [{
+          label: '実施回数',
+          data: activityData,
+          backgroundColor: activityColors
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { labels: { color: 'white' } }
+        },
+        scales: {
+          x: {
+            ticks: { color: 'white' }
+          },
+          y: {
+            beginAtZero: true,
+            ticks: { color: 'white' }
+          }
+        }
+      }
+    });
+
   showTab('record');
 
 
@@ -291,6 +474,67 @@ const closeBtn = document.createElement("button");
 closeBtn.textContent = "閉じる";
 closeBtn.style.marginTop = "10px";
 closeBtn.onclick = () => { modal.style.display = "none"; };
+
+
+    // 種目ごとの回数カウント
+    const activityCounts = {
+      swim: 0, bike: 0, run: 0,
+      trampoline: 0, ballet: 0, workout: 0, off: 0
+    };
+
+    Object.keys(localStorage).forEach(key => {
+      if (/^\d{4}-\d{2}-\d{2}$/.test(key)) {
+        const record = JSON.parse(localStorage.getItem(key));
+        if (record.trainings && Array.isArray(record.trainings)) {
+          record.trainings.forEach(t => {
+            if (activityCounts[t.type] !== undefined) {
+              activityCounts[t.type]++;
+            }
+          });
+        }
+      }
+    });
+
+    const activityLabels = ['🏊‍♂️ Swim', '🚴‍♂️ Bike', '🏃‍♂️ Run', '🪽 トランポリン', '🩰 バレエ', '💪 筋トレ', '🚫 OFF'];
+    const activityData = [
+      activityCounts.swim,
+      activityCounts.bike,
+      activityCounts.run,
+      activityCounts.trampoline,
+      activityCounts.ballet,
+      activityCounts.workout,
+      activityCounts.off
+    ];
+    const activityColors = ['#4bc0c0', '#ffcd56', '#36a2eb', '#9966ff', '#ff6384', '#ff9f40', '#aaaaaa'];
+
+    const activityCtx = document.getElementById('activityChart').getContext('2d');
+    new Chart(activityCtx, {
+      type: 'bar',
+      data: {
+        labels: activityLabels,
+        datasets: [{
+          label: '実施回数',
+          data: activityData,
+          backgroundColor: activityColors
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { labels: { color: 'white' } }
+        },
+        scales: {
+          x: {
+            ticks: { color: 'white' }
+          },
+          y: {
+            beginAtZero: true,
+            ticks: { color: 'white' }
+          }
+        }
+      }
+    });
 
 modal.appendChild(modalContent);
 modal.appendChild(closeBtn);
@@ -324,6 +568,67 @@ window.populateYearMonthSelectors = function() {
 
 
 };
+
+
+    // 種目ごとの回数カウント
+    const activityCounts = {
+      swim: 0, bike: 0, run: 0,
+      trampoline: 0, ballet: 0, workout: 0, off: 0
+    };
+
+    Object.keys(localStorage).forEach(key => {
+      if (/^\d{4}-\d{2}-\d{2}$/.test(key)) {
+        const record = JSON.parse(localStorage.getItem(key));
+        if (record.trainings && Array.isArray(record.trainings)) {
+          record.trainings.forEach(t => {
+            if (activityCounts[t.type] !== undefined) {
+              activityCounts[t.type]++;
+            }
+          });
+        }
+      }
+    });
+
+    const activityLabels = ['🏊‍♂️ Swim', '🚴‍♂️ Bike', '🏃‍♂️ Run', '🪽 トランポリン', '🩰 バレエ', '💪 筋トレ', '🚫 OFF'];
+    const activityData = [
+      activityCounts.swim,
+      activityCounts.bike,
+      activityCounts.run,
+      activityCounts.trampoline,
+      activityCounts.ballet,
+      activityCounts.workout,
+      activityCounts.off
+    ];
+    const activityColors = ['#4bc0c0', '#ffcd56', '#36a2eb', '#9966ff', '#ff6384', '#ff9f40', '#aaaaaa'];
+
+    const activityCtx = document.getElementById('activityChart').getContext('2d');
+    new Chart(activityCtx, {
+      type: 'bar',
+      data: {
+        labels: activityLabels,
+        datasets: [{
+          label: '実施回数',
+          data: activityData,
+          backgroundColor: activityColors
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { labels: { color: 'white' } }
+        },
+        scales: {
+          x: {
+            ticks: { color: 'white' }
+          },
+          y: {
+            beginAtZero: true,
+            ticks: { color: 'white' }
+          }
+        }
+      }
+    });
 
 populateYearMonthSelectors();
 
