@@ -211,6 +211,7 @@ window.addEventListener('DOMContentLoaded', function () {
       },
       options: {
         responsive: true,
+        maintainAspectRatio: false,
         plugins: {
           legend: { labels: { color: 'white' } }
         },
@@ -237,6 +238,7 @@ window.addEventListener('DOMContentLoaded', function () {
       },
       options: {
         responsive: true,
+        maintainAspectRatio: false,
         plugins: {
           legend: {
             labels: {
