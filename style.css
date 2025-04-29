@@ -55,13 +55,6 @@ button:hover {
   color: #0af;
   white-space: pre-line;
 }
-canvas {
-  background-color: #111;
-  padding: 10px;
-  border-radius: 10px;
-  margin-top: 10px;
-}
 
-canvas {
-  height: 300px !important;
-}
+
+
