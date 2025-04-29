@@ -142,7 +142,46 @@ window.addEventListener('DOMContentLoaded', function () {
       } else {
         dayDiv.innerHTML = `${i}日`;
       }
-      container.appendChild(dayDiv);
+      
+    dayDiv.dataset.date = dateStr;
+    dayDiv.addEventListener('click', () => {
+      const record = JSON.parse(localStorage.getItem(dateStr));
+      if (record) {
+        let html = `📅 ${record.date}<br>
+⚖️ 体重: ${record.weight}kg<br>
+🍙 摂取: ${record.intake} kcal<br>`;
+
+        if (record.trainings && record.trainings.length > 0) {
+          record.trainings.forEach(t => {
+            const iconMap = {
+              swim: "🏊‍♂️",
+              bike: "🚴‍♂️",
+              run: "🏃‍♂️",
+              trampoline: "🪽",
+              ballet: "🩰",
+              workout: "💪",
+              off: "🚫"
+            };
+            let line = iconMap[t.type] + " ";
+            if (["swim", "bike", "run"].includes(t.type)) {
+              line += `${t.minutes}分, ${t.distance}km, ${t.calories}kcal`;
+            } else {
+              line += `${t.minutes}分, ${t.calories}kcal`;
+            }
+            html += line + "<br>";
+          });
+        }
+
+        html += `💓 合計消費: ${Math.round(record.totalBurned)} kcal<br>
+⚖️ 差分: ${Math.round(record.balance)} kcal<br>
+📉 増減: ${record.theoryLoss >= 0 ? '+' : ''}${record.theoryLoss}kg`;
+
+        document.getElementById("modalContent").innerHTML = html;
+        document.getElementById("detailModal").style.display = "flex";
+      }
+    });
+
+    container.appendChild(dayDiv);
     }
   };
 
@@ -184,6 +223,40 @@ window.addEventListener('DOMContentLoaded', function () {
   };
 
   showTab('record');
+
+
+// モーダルHTML追加
+const modal = document.createElement("div");
+modal.id = "detailModal";
+modal.style.position = "fixed";
+modal.style.top = "0";
+modal.style.left = "0";
+modal.style.width = "100%";
+modal.style.height = "100%";
+modal.style.backgroundColor = "rgba(0, 0, 0, 0.8)";
+modal.style.display = "none";
+modal.style.justifyContent = "center";
+modal.style.alignItems = "center";
+modal.style.zIndex = "9999";
+
+const modalContent = document.createElement("div");
+modalContent.style.backgroundColor = "#111";
+modalContent.style.color = "#fff";
+modalContent.style.padding = "20px";
+modalContent.style.borderRadius = "10px";
+modalContent.style.maxWidth = "90%";
+modalContent.style.lineHeight = "1.6";
+modalContent.id = "modalContent";
+
+const closeBtn = document.createElement("button");
+closeBtn.textContent = "閉じる";
+closeBtn.style.marginTop = "10px";
+closeBtn.onclick = () => { modal.style.display = "none"; };
+
+modal.appendChild(modalContent);
+modal.appendChild(closeBtn);
+document.body.appendChild(modal);
+
 });
 
 // 年月セレクタ初期化
