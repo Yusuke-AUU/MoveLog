@@ -5,8 +5,7 @@ window.addEventListener('DOMContentLoaded', function () {
     document.getElementById(id).style.display = 'block';
     if (id === 'calendar') generateCalendar(parseInt(yearSelect.value), parseInt(monthSelect.value));
     if (id === 'graph') renderChart();
-    renderActivityChart();
-};
+  };
 
   document.getElementById('addTraining').addEventListener('click', function () {
   const container = document.getElementById('trainingContainer');
@@ -184,8 +183,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
     container.appendChild(dayDiv);
     }
-    renderActivityChart();
-};
+  };
 
   window.renderChart = function () {
     const ctx = document.getElementById('calorieChart').getContext('2d');
@@ -261,10 +259,10 @@ window.addEventListener('DOMContentLoaded', function () {
       }
     });
 
-    renderActivityChart();
-};
+  };
 
   showTab('record');
+    renderActivityChart();
 
 
 // モーダルHTML追加
@@ -293,8 +291,7 @@ modalContent.id = "modalContent";
 const closeBtn = document.createElement("button");
 closeBtn.textContent = "閉じる";
 closeBtn.style.marginTop = "10px";
-closeBtn.onclick = () => { modal.style.display = "none";   renderActivityChart();
-};
+closeBtn.onclick = () => { modal.style.display = "none"; };
 
 modal.appendChild(modalContent);
 modal.appendChild(closeBtn);
@@ -327,7 +324,6 @@ window.populateYearMonthSelectors = function() {
   monthSelect.value = now.getMonth();
 
 
-  renderActivityChart();
 };
 
 populateYearMonthSelectors();
@@ -358,8 +354,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const activityCounts = {
       swim: 0, bike: 0, run: 0,
       trampoline: 0, ballet: 0, workout: 0, off: 0
-      renderActivityChart();
-};
+    };
 
     Object.keys(localStorage).forEach(key => {
       if (/^\d{4}-\d{2}-\d{2}$/.test(key)) {
@@ -415,8 +410,7 @@ function renderActivityChart() {
   const activityCounts = {
     swim: 0, bike: 0, run: 0,
     trampoline: 0, ballet: 0, workout: 0, off: 0
-    renderActivityChart();
-};
+  };
 
   Object.keys(localStorage).forEach(key => {
     if (/^\d{4}-\d{2}-\d{2}$/.test(key)) {
