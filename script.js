@@ -17,14 +17,14 @@ window.addEventListener('DOMContentLoaded', function () {
       <option value="swim">🏊‍♂️ スイム</option>
       <option value="bike">🚴‍♂️ バイク</option>
       <option value="run">🏃‍♂️ ラン</option>
-      <option value="trampoline">🪽 トランポリン</option>
+      <option value="trampoline">🪂 トランポリン</option>
       <option value="ballet">🩰 バレエ</option>
       <option value="workout">💪 筋トレ</option>
     </select>
     <input type="number" class="minutes" placeholder="分数">
     <input type="number" class="distance" placeholder="距離 (km)" step="0.1">
     <button type="button" class="delete-training">🗑️</button>
-  `;
+`;
   container.appendChild(div);
 
   div.querySelector('.delete-training').addEventListener('click', () => div.remove());
@@ -44,10 +44,10 @@ window.addEventListener('DOMContentLoaded', function () {
       const distance = parseFloat(div.querySelector('.distance').value || 0);
       let cal = 0;
 
-      } else if (act === 'off') {
+      if (act === 'off') {
         cal = 0;
         activities += '🚫 ';
-      if (act === 'swim') {
+      } else if (act === 'swim') {
         cal = (distance / 3) * 850 * (minutes / 50);
         activities += '🏊‍♂️ ';
       } else if (act === 'bike') {
