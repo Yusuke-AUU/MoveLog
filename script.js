@@ -17,7 +17,7 @@ window.addEventListener('DOMContentLoaded', function () {
       <option value="swim">🏊‍♂️ スイム</option>
       <option value="bike">🚴‍♂️ バイク</option>
       <option value="run">🏃‍♂️ ラン</option>
-      <option value="trampoline">🪂 トランポリン</option>
+      <option value="trampoline">🪽 トランポリン</option>
       <option value="ballet">🩰 バレエ</option>
       <option value="workout">💪 筋トレ</option>
     </select>
