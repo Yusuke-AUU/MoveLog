@@ -13,6 +13,7 @@ window.addEventListener('DOMContentLoaded', function () {
   div.classList.add('training-row');
   div.innerHTML = `
     <select class="activity">
+      <option value="off">🚫 OFF</option>
       <option value="swim">🏊‍♂️ スイム</option>
       <option value="bike">🚴‍♂️ バイク</option>
       <option value="run">🏃‍♂️ ラン</option>
@@ -43,6 +44,9 @@ window.addEventListener('DOMContentLoaded', function () {
       const distance = parseFloat(div.querySelector('.distance').value || 0);
       let cal = 0;
 
+      } else if (act === 'off') {
+        cal = 0;
+        activities += '🚫 ';
       if (act === 'swim') {
         cal = (distance / 3) * 850 * (minutes / 50);
         activities += '🏊‍♂️ ';
