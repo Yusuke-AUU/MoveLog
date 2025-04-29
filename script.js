@@ -220,6 +220,45 @@ window.addEventListener('DOMContentLoaded', function () {
         }
       }
     });
+    const weightCtx = document.getElementById('weightChart').getContext('2d');
+    new Chart(weightCtx, {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [
+          {
+            label: '体重 (kg)',
+            data: weightData,
+            borderWidth: 2,
+            borderColor: '#fff',
+            tension: 0.3
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            labels: {
+              color: 'white'
+            }
+          }
+        },
+        scales: {
+          x: {
+            ticks: {
+              color: 'white'
+            }
+          },
+          y: {
+            ticks: {
+              color: 'white'
+            }
+          }
+        }
+      }
+    });
+
   };
 
   showTab('record');
