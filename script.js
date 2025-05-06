@@ -88,8 +88,7 @@ window.addEventListener('DOMContentLoaded', function () {
         labels,
         datasets: [
           { label: '摂取カロリー', data: intakeData, borderWidth: 2, borderColor: '#0af' },
-          { label: '合計消費カロリー', data: burnedData, borderWidth: 2, borderColor: '#fa0' },
-          { label: '体重 (kg)', data: weightData, borderWidth: 2, borderColor: '#fff' }
+          { label: '合計消費カロリー', data: burnedData, borderWidth: 2, borderColor: '#fa0' }
         ]
       },
       options: {
