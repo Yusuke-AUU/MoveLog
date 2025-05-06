@@ -1,27 +1,27 @@
-document.getElementById('addTraining').addEventListener('click', function () {
-  const container = document.getElementById('trainingContainer');
-  const div = document.createElement('div');
-  div.classList.add('training-row');
-  div.innerHTML = `
-    <select class="activity">
-      <option value="off">🚫 OFF</option>
-      <option value="swim">🏊‍♂️ スイム</option>
-      <option value="bike">🚴‍♂️ バイク</option>
-      <option value="run">🏃‍♂️ ラン</option>
-      <option value="trampoline">🪽 トランポリン</option>
-      <option value="ballet">🩰 バレエ</option>
-      <option value="workout">💪 筋トレ</option>
-    </select>
-    <input type="number" class="minutes" placeholder="分数">
-    <input type="number" class="distance" placeholder="距離 (km)" step="0.1">
-    <button type="button" class="delete-training">🗑️</button>
-  `;
-  container.appendChild(div);
-  div.querySelector('.delete-training').addEventListener('click', () => div.remove());
-});
-
 
 window.addEventListener('DOMContentLoaded', function () {
+  document.getElementById('addTraining').addEventListener('click', function () {
+    const container = document.getElementById('trainingContainer');
+    const div = document.createElement('div');
+    div.classList.add('training-row');
+    div.innerHTML = `
+      <select class="activity">
+        <option value="off">🚫 OFF</option>
+        <option value="swim">🏊‍♂️ スイム</option>
+        <option value="bike">🚴‍♂️ バイク</option>
+        <option value="run">🏃‍♂️ ラン</option>
+        <option value="trampoline">🪽 トランポリン</option>
+        <option value="ballet">🩰 バレエ</option>
+        <option value="workout">💪 筋トレ</option>
+      </select>
+      <input type="number" class="minutes" placeholder="分数">
+      <input type="number" class="distance" placeholder="距離 (km)" step="0.1">
+      <button type="button" class="delete-training">🗑️</button>
+    `;
+    container.appendChild(div);
+    div.querySelector('.delete-training').addEventListener('click', () => div.remove());
+  });
+
   window.showTab = function (id) {
     document.querySelectorAll('.tab-content').forEach(t => t.style.display = 'none');
     document.getElementById(id).style.display = 'block';
@@ -157,7 +157,6 @@ window.addEventListener('DOMContentLoaded', function () {
     monthSelect.value = now.getMonth() + 1;
   };
 
-  // モーダル
   const modal = document.createElement("div");
   modal.id = "detailModal";
   modal.style.position = "fixed";
