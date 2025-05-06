@@ -1,4 +1,95 @@
 
+document.getElementById('recordForm').addEventListener('submit', function (e) {
+  e.preventDefault();
+  const date = document.getElementById('date').value;
+  const weight = parseFloat(document.getElementById('weight').value);
+  const intake = parseFloat(document.getElementById('intake').value);
+  let totalCalories = 0;
+  let trainings = [];
+  let activities = '';
+
+  document.querySelectorAll('#trainingContainer div').forEach(div => {
+    const act = div.querySelector('.activity').value;
+    const minutes = parseFloat(div.querySelector('.minutes').value || 0);
+    const distance = parseFloat(div.querySelector('.distance').value || 0);
+    let cal = 0;
+
+    if (act === 'swim') {
+      cal = (distance / 3) * 850 * (minutes / 50);
+      activities += '🏊‍♂️ ';
+    } else if (act === 'bike') {
+      cal = (distance / 30) * 850;
+      activities += '🚴‍♂️ ';
+    } else if (act === 'run') {
+      cal = (distance / 10) * 850 * (minutes / 60);
+      activities += '🏃‍♂️ ';
+    } else if (act === 'trampoline') {
+      cal = (minutes / 60) * 450;
+      activities += '🪽 ';
+    } else if (act === 'ballet') {
+      cal = (minutes / 60) * 450;
+      activities += '🩰 ';
+    } else if (act === 'workout') {
+      cal = (minutes / 30) * 400;
+      activities += '💪 ';
+    }
+
+    totalCalories += cal;
+
+    trainings.push({
+      type: act,
+      minutes,
+      distance,
+      calories: Math.round(cal)
+    });
+  });
+
+  const metabolism = 2000;
+  const totalBurned = totalCalories + metabolism;
+  const balance = intake - totalBurned;
+  const theoryLoss = Math.round((balance / 700 * 0.1) * 100) / 100;
+
+  const record = { date, weight, intake, totalCalories, metabolism, totalBurned, balance, theoryLoss, activities, trainings };
+  localStorage.setItem(date, JSON.stringify(record));
+  updateSummary(record);
+});
+
+function updateSummary(record) {
+  let trainingDetails = "";
+  if (record.trainings && record.trainings.length > 0) {
+    trainingDetails = record.trainings.map(t => {
+      let icon = {
+        swim: "🏊‍♂️",
+        bike: "🚴‍♂️",
+        run: "🏃‍♂️",
+        trampoline: "🪽",
+        ballet: "🩰",
+        workout: "💪",
+        off: "🚫"
+      }[t.type] || "";
+      let line = `${icon} `;
+      if (["swim", "bike", "run"].includes(t.type)) {
+        line += `${t.minutes}分, ${t.distance}km, ${t.calories}kcal`;
+      } else {
+        line += `${t.minutes}分, ${t.calories}kcal`;
+      }
+      return "- " + line;
+    }).join("<br>");
+  }
+
+  document.getElementById('summaryText').innerHTML = `
+    📅 日付: ${record.date}<br>
+    ⚖️ 体重: ${record.weight}kg<br>
+    🍙 摂取: ${record.intake} kcal<br>
+    🔋 基礎代謝: ${record.metabolism} kcal<br>
+    🔥 運動消費: ${Math.round(record.totalCalories)} kcal<br>${trainingDetails}<br>
+    💓 合計消費（含：基礎代謝）: ${Math.round(record.totalBurned)} kcal<br>
+    ⚖️ カロリー差分: ${Math.round(record.balance)} kcal<br>
+    📉 理論増減値: ${record.theoryLoss >= 0 ? '+' : ''}${record.theoryLoss} kg
+  `;
+}
+
+
 window.addEventListener('DOMContentLoaded', function () {
   document.getElementById('addTraining').addEventListener('click', function () {
     const container = document.getElementById('trainingContainer');
